@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>delegate & undelegate Method</title>
+</head>
+<body>
+    
+    <h1>Hello Myanmar</h1>
+    <h1>Hello Thailand</h1>
+    <h2>Hello Srilanka</h2>
+
+    <button type="button" id="dlgbtn">delegate</button>
+    <button type="button" id="undlgbtn">undelegate</button>
+    <button type="button" id="hibtn">say hi</button>
+    <button type="button" id="zbtn">Zoom</button>
+
+    <hr/>
+
+    <div class="container">
+        <h3>Hello indonesia</h3>
+        <button type="button" id="dlgmebtn">delegate Me</button>
+        <button type="button" id="undlgmebtn">undelegate Me</button>
+    </div>
+
+
+    
+
+    <script src="./libs/jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // console.log('hi');
+
+            // $(selector).delegate(selector,event,function);
+
+            $("body").delegate("#dlgbtn","click",function(){
+                // prepend and append ka h1 tag htai mr winn nay mr 
+                // $("h1").prepend("<p>Thanks for delegate me</p>");
+                // $("h1").append("<p>Thanks for delegate me</p>");
+                
+                // h1 tag yet apyin mr win nay mr / block element 
+                // $("h1").before("<p>Thanks for delegate me</p>");
+                $("h1").after("<p>Thanks for delegate me</p>");
+            });
+
+
+            // undelegate 
+
+            $("#undlgbtn").click(function(){
+                // $("body").undelegate();
+                $("body").undelegate("click");
+            });
+
+            
+            $("#hibtn").click(function(){
+                console.log('hi');
+            });
+
+
+            var x = 0;
+            $("#zbtn").click(function(e){
+
+                $("h2").css({fontSize: "+=10px"});
+                $("#zbtn").text("Zoom " + (x+1));
+                x++;
+
+                if(x === 3){
+                    $("body").undelegate(e);      // e net pl khaw lo ya dr...this net khaw yin maya bu
+                }
+
+            });
+
+
+            // NOTE:: all el are must be in same parent . Inc button 
+            // delegate and undelegate lot yin parent tuu nay pho lo mal (30may22)
+
+            $("div").delegate("#dlgmebtn","click",function(){
+                $("h3").after("<p>Thanks for deleget me again</p>");
+
+            });
+
+            $("#undlgmebtn").click(function(){
+                $(".container").undelegate("click");
+            })
+
+
+
+        });
+        
+    </script>
+</body>
+</html>
+
+
+
+
+
+<!-- this net khaw yin function htai e htai sayr ma lo bu  -->
+<!-- this ka target ko pl call dr  -->
+<!-- e ka object akone lone ko khaw dr   -->
+
+<!-- 
+var x = 0;
+$("#zbtn").click(function(){
+
+    $("h2").css({fontSize: "+=10px"});
+    $("#zbtn").text("Zoom " + (x+1));
+    x++;
+
+    if(x === 3){
+        $("body").undelegate(e);      // e net pl khaw lo ya dr...this net khaw yin maya bu
+    }
+
+}); -->
